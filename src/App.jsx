@@ -1,45 +1,28 @@
 import { useState,useEffect } from 'react'
 import './App.css'
-import { LoginView } from './views/auth' 
-import { DashBoardView } from './views/DashBoardView'
-import axios from 'axios';
+import AuhtNavigation from './Navigation/Auth'
+import DashBoardNavigation from './Navigation/DashBoard'
+import { authContext } from './context/logginContext'
+
 function App() {
-  const [isLogged,setIsLogged] = useState(false);
-  const [categorias,setCategorias] = useState([])
-  const hasLogin = ()=>{
-    console.log('hasLogin')
-    setIsLogged(prevState=>!prevState)
+
+  const [isLoggin, setIsLoggin]=useState(false)
+
+  const navigator = ()=> {
+    return isLoggin?<DashBoardNavigation />:<AuhtNavigation />
   }
-  const addNewCategory = (newCategory)=>{
-    setCategorias(prevState=>[...prevState,newCategory])
-  }
-  const getCategories = async ()=>{
-    const {data:{pagination,data}} = await axios.get('http://localhost:8000/api/catalogo/categoria')
-   
-    setCategorias(data)
-    
-  }
+  console.log(localStorage.getItem('loggin'));
+  
+  
   useEffect(()=>{
-    async function fetchData(){
-      await getCategories()
-    }
-    fetchData()
+    console.log(localStorage.getItem('loggin'));
+    
   },[])
-  const AuthViews = ()=>{
-    
-    const view = isLogged?<DashBoardView categorias={categorias} addNewCategory={addNewCategory} />:<LoginView />
-    return(
-    <>
-      {view}
-    </>
-    )
-  }
   return (
-     <>
-     <AuthViews />
-     <button onClick={hasLogin} >Cambiar estado</button>
+     <authContext.Provider value={setIsLoggin}>
+     {navigator()}
     
-     </>
+     </authContext.Provider>
   )
 }
 
