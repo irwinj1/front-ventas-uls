@@ -1,4 +1,6 @@
 import { Children, createContext, useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
+
 
 export const AuthContext = createContext();
 
@@ -11,6 +13,15 @@ export const AuthPrivider = ({children, initialState}) => {
        try {
         setToken(newToken);
         localStorage.setItem('token', newToken);
+        const decodedToken = jwtDecode(newToken);
+        const userData = {
+            id: decodedToken.user_id,
+          
+            email: decodedToken.email,
+        
+        }
+        localStorage.setItem('user', JSON.stringify(userData));
+        setUser(userData);
        } catch (error) {
         console.log(error);
        }
