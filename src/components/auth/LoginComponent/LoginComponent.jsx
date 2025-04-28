@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react'
 import { style } from './LoginComponentStyle'
 import { login } from '../../../services';
 import { useNavigate } from 'react-router';
-import { authContext } from '../../../context/logginContext';
+import { AuthContext } from '../../../context/AuthContext';
 
 export function LoginComponent() {
-    const authContext = useContext(authContext)
+    const {loginAuth,setIsLogin} = useContext(AuthContext)
     const navigate = useNavigate()
     const [email,setEmail] = useState(null);
     const [password,setPassword] = useState(null);
@@ -39,7 +39,8 @@ export function LoginComponent() {
       
         localStorage.setItem('token',response.data.token)
         if (response.data.token) {
-            localStorage.setItem('loggin',true)
+            loginAuth(response.data.token)
+            setIsLogin(true)
         }
         
         navigate('/')
