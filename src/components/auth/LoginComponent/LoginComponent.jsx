@@ -3,12 +3,15 @@ import { style } from './LoginComponentStyle'
 import { login } from '../../../services';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../../../context/AuthContext';
+import usePusher from '../../../hooks/usePusher';
 
 export function LoginComponent() {
     const {loginAuth,setIsLogin} = useContext(AuthContext)
     const navigate = useNavigate()
     const [email,setEmail] = useState(null);
     const [password,setPassword] = useState(null);
+
+    // Cambia este token dinámicamente si lo cargas desde otro lado
 
     const getData = (e) => {
         
@@ -67,6 +70,7 @@ export function LoginComponent() {
             <input type="submit" value='Iniciar sesión' style={style.submit} />
             </form>
         </div>
+        
     </article>
    </>
   )

@@ -31,24 +31,24 @@ export function DashBoardView() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Categorias
-                </a>
+                <Link className="nav-link" to="/categories">
+                  Categorías
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link " >
+                <Link className="nav-link " to="/products">
                   Productos
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link " >
+                <Link className="nav-link " to="/clients">
                   Clientes
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link " >
+                <Link className="nav-link " to="/orders">
                   Pedidos
-                </a>
+                </Link>
               </li>
             </ul>
 
